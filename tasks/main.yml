@@ -1,2 +1,24 @@
----
-# tasks file for zabbix-agent
+
+- name: Configure selinux permissive
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: Disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    masked: yes
+
+- name: Install packages
+  dnf: 
+    name: ['zabbix','zabbix-agent']
+    state: present
+
+- name: Copy configuration file
+  copy:
+    src: etc/zabbix/zabbix_agentd.conf
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: root
+    group: root
+    mode: '0644'
