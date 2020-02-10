@@ -22,3 +22,10 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: Restarting zabbix agent
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - zabbix-agent
