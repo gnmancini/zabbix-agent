@@ -29,10 +29,12 @@
     group: root
     mode: '0644'
 
-- name: Restarting zabbix agent
+- name: Enabling zabbix server
   systemd:
     name: "{{ item }}"
-    state: restarted
+    enabled: yes
+    masked: no
+    state: started
   with_items:
     - zabbix-agent
 
